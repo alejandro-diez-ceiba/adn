@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class UserRepositoryPersistence implements UserGetRepository {
 
+    private static final String FIND_ALL_USER = "SELECT a FROM User a";
     private EntityManager entityManager;
 
     public UserRepositoryPersistence(EntityManager entityManager) {
@@ -21,7 +22,7 @@ public class UserRepositoryPersistence implements UserGetRepository {
     @SuppressWarnings("rawtypes")
     private List<UserEntity> getAllUserEntity() {
         return this.entityManager
-                .createQuery("SELECT a FROM User a", UserEntity.class)
+                .createQuery(FIND_ALL_USER, UserEntity.class)
                 .getResultList();
     }
 
@@ -32,8 +33,8 @@ public class UserRepositoryPersistence implements UserGetRepository {
 
     @Override
     public List<User> getAllUser() {
-        List<UserEntity> userEntities = this.getAllUserEntity();
-        return userEntities.stream()
+        return this.getAllUserEntity()
+                .stream()
                 .map(userEntity -> UserBuilder.toDomain(userEntity))
                 .collect(Collectors.toList());
     }

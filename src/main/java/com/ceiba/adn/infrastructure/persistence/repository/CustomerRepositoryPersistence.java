@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class CustomerRepositoryPersistence implements CustomerGetRepository {
 
+    private static final String FIND_ALL_CUSTOMER = "SELECT a FROM Customer a";
     private EntityManager entityManager;
 
     public CustomerRepositoryPersistence(EntityManager entityManager) {
@@ -21,7 +22,7 @@ public class CustomerRepositoryPersistence implements CustomerGetRepository {
     @SuppressWarnings("rawtypes")
     private List<CustomerEntity> getAllCustomerEntity() {
         return this.entityManager
-                .createQuery("SELECT a FROM Customer a", CustomerEntity.class)
+                .createQuery(FIND_ALL_CUSTOMER, CustomerEntity.class)
                 .getResultList();
     }
 
@@ -32,8 +33,8 @@ public class CustomerRepositoryPersistence implements CustomerGetRepository {
 
     @Override
     public List<Customer> getAllCustomer() {
-        List<CustomerEntity> customerEntities = this.getAllCustomerEntity();
-        return customerEntities.stream()
+        return this.getAllCustomerEntity()
+                .stream()
                 .map(customerEntity -> CustomerBuilder.toDomain(customerEntity))
                 .collect(Collectors.toList());
     }
