@@ -6,9 +6,7 @@ import com.ceiba.adn.infrastructure.persistence.entity.UserEntity;
 
 public class UserBuilder {
 
-    private UserBuilder() {
-
-    }
+    private UserBuilder() { }
 
     public static User toDomain(UserEntity userEntity) {
         User user = null;
@@ -21,5 +19,4 @@ public class UserBuilder {
         }
         return user;
     }
-
 }

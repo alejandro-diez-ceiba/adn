@@ -6,9 +6,7 @@ import com.ceiba.adn.infrastructure.persistence.entity.CustomerEntity;
 
 public class CustomerBuilder {
 
-    private CustomerBuilder() {
-
-    }
+    private CustomerBuilder() { }
 
     public static Customer toDomain(CustomerEntity customerEntity) {
         Customer customer = null;
