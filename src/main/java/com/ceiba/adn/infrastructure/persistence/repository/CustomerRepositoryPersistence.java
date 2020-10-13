@@ -1,7 +1,7 @@
 package com.ceiba.adn.infrastructure.persistence.repository;
 
 import com.ceiba.adn.domain.Customer;
-import com.ceiba.adn.domain.repository.CustomerGetRepository;
+import com.ceiba.adn.domain.repository.CustomerRepository;
 import com.ceiba.adn.infrastructure.persistence.builder.CustomerBuilder;
 import com.ceiba.adn.infrastructure.persistence.entity.CustomerEntity;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class CustomerRepositoryPersistence implements CustomerGetRepository {
+public class CustomerRepositoryPersistence implements CustomerRepository {
 
     private static final String FIND_ALL_CUSTOMER = "SELECT a FROM Customer a";
     private EntityManager entityManager;
@@ -32,7 +32,7 @@ public class CustomerRepositoryPersistence implements CustomerGetRepository {
     }
 
     @Override
-    public List<Customer> getAllCustomer() {
+    public List<Customer> getAll() {
         return this.getAllCustomerEntity()
                 .stream()
                 .map(customerEntity -> CustomerBuilder.toDomain(customerEntity))
@@ -40,7 +40,7 @@ public class CustomerRepositoryPersistence implements CustomerGetRepository {
     }
 
     @Override
-    public Customer getCustomerById(int id) {
+    public Customer getById(int id) {
         return CustomerBuilder.toDomain(this.getCustomerEntityById(id));
     }
 }

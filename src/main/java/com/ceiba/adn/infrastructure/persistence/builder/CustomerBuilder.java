@@ -26,5 +26,4 @@ public class CustomerBuilder {
         }
         return customer;
     }
-
 }

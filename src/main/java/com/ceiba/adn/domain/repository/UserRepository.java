@@ -3,10 +3,10 @@ package com.ceiba.adn.domain.repository;
 import com.ceiba.adn.domain.User;
 import java.util.List;
 
-public interface UserGetRepository {
+public interface UserRepository {
 
-    List<User> getAllUser();
+    List<User> getAll();
 
-    User getUserById(int id);
+    User getById(int id);
 
 }

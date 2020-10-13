@@ -1,6 +1,6 @@
 package com.ceiba.adn.infrastructure.controller;
 
-import com.ceiba.adn.application.handler.customer.CustomerGetHandler;
+import com.ceiba.adn.application.handler.customer.CustomerHandler;
 import com.ceiba.adn.domain.Customer;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -9,19 +9,19 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private final CustomerGetHandler customerGetHandler;
+    private final CustomerHandler customerHandler;
 
-    public CustomerController(CustomerGetHandler customerGetHandler) {
-        this.customerGetHandler = customerGetHandler;
+    public CustomerController(CustomerHandler customerHandler) {
+        this.customerHandler = customerHandler;
     }
 
     @GetMapping
-    public List<Customer> getAllCustomer() {
-        return this.customerGetHandler.executeGetAllCustomer();
+    public List<Customer> getAll() {
+        return this.customerHandler.executeGetAllCustomer();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomer(@PathVariable(name = "id") int id) {
-        return this.customerGetHandler.executeGetCustomerId(id);
+    public Customer getById(@PathVariable(name = "id") int id) {
+        return this.customerHandler.executeGetCustomerId(id);
     }
 }
