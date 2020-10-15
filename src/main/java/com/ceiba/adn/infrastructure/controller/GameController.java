@@ -21,7 +21,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public Game getById(@PathVariable(name = "id") int id) {
+    public Game getById(@PathVariable(name = "id") long id) {
         return this.gameHandler.executeGetById(id);
     }
 }

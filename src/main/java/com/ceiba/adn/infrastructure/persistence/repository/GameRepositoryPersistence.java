@@ -27,7 +27,7 @@ public class GameRepositoryPersistence implements GameRepository {
     }
 
     @SuppressWarnings("rawtypes")
-    private GameEntity getGameEntityById(int id) {
+    private GameEntity getGameEntityById(long id) {
         return this.entityManager.find(GameEntity.class, id);
     }
 
@@ -40,7 +40,7 @@ public class GameRepositoryPersistence implements GameRepository {
     }
 
     @Override
-    public Game getById(int id) {
+    public Game getById(long id) {
         return GameBuilder.toDomain(this.getGameEntityById(id));
     }
 }

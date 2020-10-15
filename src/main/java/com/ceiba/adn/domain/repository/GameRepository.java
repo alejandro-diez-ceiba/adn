@@ -7,6 +7,6 @@ public interface GameRepository {
 
     List<Game> getAll();
 
-    Game getById(int id);
+    Game getById(long id);
 
 }

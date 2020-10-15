@@ -18,7 +18,7 @@ public class GameHandler {
         return this.gameRepository.getAll();
     }
 
-    public Game executeGetById(int id) {
+    public Game executeGetById(long id) {
         return this.gameRepository.getById(id);
     }
 }

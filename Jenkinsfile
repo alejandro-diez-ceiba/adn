@@ -6,7 +6,7 @@ pipeline {
 
   options {
     buildDiscarder(logRotator(numToKeepStr: '3'))
- 	disableConcurrentBuilds()
+ 	 disableConcurrentBuilds()
   }
 
   tools {
@@ -56,9 +56,9 @@ pipeline {
 
     stage('Static Code Analysis') {
       steps{
-        echo '------------>Análisis de código estático<------------'
-        withSonarQubeEnv('Sonar') {
-			sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+          echo '------------>Análisis de código estático<------------'
+          withSonarQubeEnv('Sonar') {
+          sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
         }
       }
     }
@@ -82,13 +82,6 @@ pipeline {
     failure {
       echo 'This will run only if failed'
       mail (to: 'alejandro.diez@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
-    }
-    unstable {
-      echo 'This will run only if the run was marked as unstable'
-    }
-    changed {
-      echo 'This will run only if the state of the Pipeline has changed'
-      echo 'For example, if the Pipeline was previously failing but is now successful'
     }
   }
 }
