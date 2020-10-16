@@ -9,4 +9,8 @@ public interface GameRepository {
 
     Game getById(long id);
 
+    Game createOrUpdate(Game game);
+
+    Game deleteById(long id);
+
 }

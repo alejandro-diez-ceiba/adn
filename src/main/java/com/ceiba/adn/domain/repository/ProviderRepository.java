@@ -9,4 +9,8 @@ public interface ProviderRepository {
 
     Provider getById(int id);
 
+    Provider createOrUpdate(Provider provider);
+
+    Provider deleteById(int id);
+
 }

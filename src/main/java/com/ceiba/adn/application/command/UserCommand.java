@@ -1,14 +1,18 @@
-package com.ceiba.adn.domain;
+package com.ceiba.adn.application.command;
 
-public class User {
+public class UserCommand  {
 
     private int id;
     private String fullName;
-    private TypeDocument typeDocument;
+    private int typeDocument;
     private long document;
     private String password;
 
-    public User(int id, String fullName, TypeDocument typeDocument, long document, String password) {
+    public UserCommand() {
+
+    }
+
+    public UserCommand(int id, String fullName, int typeDocument, long document, String password) {
         this.id = id;
         this.fullName = fullName;
         this.typeDocument = typeDocument;
@@ -24,7 +28,7 @@ public class User {
         return fullName;
     }
 
-    public TypeDocument getTypeDocument() {
+    public int getTypeDocument() {
         return typeDocument;
     }
 

@@ -9,4 +9,8 @@ public interface CustomerRepository {
 
     Customer getById(int id);
 
+    Customer createOrUpdate(Customer user);
+
+    Customer deleteById(int id);
+
 }

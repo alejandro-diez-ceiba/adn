@@ -43,4 +43,16 @@ public class GameRepositoryPersistence implements GameRepository {
     public Game getById(long id) {
         return GameBuilder.toDomain(this.getGameEntityById(id));
     }
+
+    @Override
+    public Game createOrUpdate(Game game) {
+        return GameBuilder.toDomain(this.entityManager.merge(GameBuilder.toEntity(game)));
+    }
+
+    @Override
+    public Game deleteById(long id) {
+        GameEntity gameEntity = this.getGameEntityById(id);
+        this.entityManager.remove(gameEntity);
+        return GameBuilder.toDomain(gameEntity);
+    }
 }

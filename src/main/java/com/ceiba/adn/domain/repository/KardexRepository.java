@@ -9,4 +9,8 @@ public interface KardexRepository {
 
     Kardex getById(long id);
 
+    Kardex createOrUpdate(Kardex kardex);
+
+    Kardex deleteById(long id);
+
 }

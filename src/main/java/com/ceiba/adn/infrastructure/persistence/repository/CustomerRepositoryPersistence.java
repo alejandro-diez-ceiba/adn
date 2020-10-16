@@ -43,4 +43,16 @@ public class CustomerRepositoryPersistence implements CustomerRepository {
     public Customer getById(int id) {
         return CustomerBuilder.toDomain(this.getCustomerEntityById(id));
     }
+
+    @Override
+    public Customer createOrUpdate(Customer customer) {
+        return CustomerBuilder.toDomain(this.entityManager.merge(CustomerBuilder.toEntity(customer)));
+    }
+
+    @Override
+    public Customer deleteById(int id) {
+        CustomerEntity customerEntity = this.getCustomerEntityById(id);
+        this.entityManager.remove(customerEntity);
+        return CustomerBuilder.toDomain(customerEntity);
+    }
 }

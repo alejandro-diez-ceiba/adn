@@ -1,6 +1,8 @@
 package com.ceiba.adn.infrastructure.controller;
 
+import com.ceiba.adn.application.command.GameCommand;
 import com.ceiba.adn.application.handler.game.GameHandler;
+import com.ceiba.adn.application.handler.game.GameHandlerPersistence;
 import com.ceiba.adn.domain.Game;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,9 +12,11 @@ import java.util.List;
 public class GameController {
 
     private final GameHandler gameHandler;
+    private final GameHandlerPersistence gameHandlerPersistence;
 
-    public GameController(GameHandler gameHandler) {
+    public GameController(GameHandler gameHandler, GameHandlerPersistence gameHandlerPersistence) {
         this.gameHandler = gameHandler;
+        this.gameHandlerPersistence = gameHandlerPersistence;
     }
 
     @GetMapping
@@ -23,5 +27,15 @@ public class GameController {
     @GetMapping("/{id}")
     public Game getById(@PathVariable(name = "id") long id) {
         return this.gameHandler.executeGetById(id);
+    }
+
+    @PostMapping
+    public Game createOrUpdate(@RequestBody GameCommand gameCommand) {
+        return this.gameHandlerPersistence.executeCreateOrUpdate(gameCommand);
+    }
+
+    @DeleteMapping("/{id}")
+    public Game deleteById(@PathVariable(name = "id") long id) {
+        return this.gameHandlerPersistence.executeDeleteById(id);
     }
 }

@@ -43,4 +43,16 @@ public class UserRepositoryPersistence implements UserRepository {
     public User getById(int id) {
         return UserBuilder.toDomain(this.getUserEntityById(id));
     }
+
+    @Override
+    public User createOrUpdate(User user) {
+        return UserBuilder.toDomain(this.entityManager.merge(UserBuilder.toEntity(user)));
+    }
+
+    @Override
+    public User deleteById(int id) {
+        UserEntity userEntity = this.getUserEntityById(id);
+        this.entityManager.remove(userEntity);
+        return UserBuilder.toDomain(userEntity);
+    }
 }

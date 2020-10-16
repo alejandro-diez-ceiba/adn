@@ -43,4 +43,16 @@ public class KardexRepositoryPersistence implements KardexRepository {
     public Kardex getById(long id) {
         return KardexBuilder.toDomain(this.getKardexEntityById(id));
     }
+
+    @Override
+    public Kardex createOrUpdate(Kardex kardex) {
+        return KardexBuilder.toDomain(this.entityManager.merge(KardexBuilder.toEntity(kardex)));
+    }
+
+    @Override
+    public Kardex deleteById(long id) {
+        KardexEntity kardexEntity = this.getKardexEntityById(id);
+        this.entityManager.remove(kardexEntity);
+        return KardexBuilder.toDomain(kardexEntity);
+    }
 }

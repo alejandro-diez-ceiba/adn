@@ -1,6 +1,8 @@
 package com.ceiba.adn.infraestructure.controller;
 
+import com.ceiba.adn.application.command.GameCommand;
 import com.ceiba.adn.application.command.UserCommand;
+import com.ceiba.adn.databuilder.GameTestDataBuilder;
 import com.ceiba.adn.databuilder.UserTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -22,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Sql(scripts = {"classpath:clean.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class UserControllerTest {
+public class GameControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -35,14 +37,14 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user/{id}", "1")
+                                .get("/game/{id}", "1")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.fullName").value("Pepito Cardenas")
+                                .jsonPath("$.name").value("Horizon Zero Dawn")
                 );
     }
 
@@ -51,28 +53,28 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user")
+                                .get("/game")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.length()").value(1)
+                                .jsonPath("$.length()").value(2)
                 );
     }
 
     @Test
     public void create() throws Exception {
-        UserCommand userCommand = new UserTestDataBuilder().buildUserCommand();
+        GameCommand gameCommand = new GameTestDataBuilder().buildGameCommand();
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/user")
-                                .content(objectMapper.writeValueAsString(userCommand))
+                                .post("/game")
+                                .content(objectMapper.writeValueAsString(gameCommand))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                                .andExpect(status().isOk()
+                .andExpect(status().isOk()
                 );
     }
 
@@ -81,7 +83,7 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .delete("/user/{id}", "1")
+                                .delete("/game/{id}", "2")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())

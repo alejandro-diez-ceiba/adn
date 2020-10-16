@@ -1,7 +1,7 @@
 package com.ceiba.adn.infraestructure.controller;
 
-import com.ceiba.adn.application.command.UserCommand;
-import com.ceiba.adn.databuilder.UserTestDataBuilder;
+import com.ceiba.adn.application.command.CustomerCommand;
+import com.ceiba.adn.databuilder.CustomerTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Sql(scripts = {"classpath:clean.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class UserControllerTest {
+public class CustomerControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -35,14 +35,14 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user/{id}", "1")
+                                .get("/customer/{id}", "1")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.fullName").value("Pepito Cardenas")
+                                .jsonPath("$.fullName").value("Cristiano Ronaldo")
                 );
     }
 
@@ -51,28 +51,28 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user")
+                                .get("/customer")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.length()").value(1)
+                                .jsonPath("$.length()").value(2)
                 );
     }
 
     @Test
     public void create() throws Exception {
-        UserCommand userCommand = new UserTestDataBuilder().buildUserCommand();
+        CustomerCommand customerCommand = new CustomerTestDataBuilder().buildCustomerCommand();
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/user")
-                                .content(objectMapper.writeValueAsString(userCommand))
+                                .post("/customer")
+                                .content(objectMapper.writeValueAsString(customerCommand))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                                .andExpect(status().isOk()
+                .andExpect(status().isOk()
                 );
     }
 
@@ -81,7 +81,7 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .delete("/user/{id}", "1")
+                                .delete("/customer/{id}", "1")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())

@@ -43,4 +43,16 @@ public class ProviderRepositoryPersistence implements ProviderRepository {
     public Provider getById(int id) {
         return ProviderBuilder.toDomain(this.getProviderEntityById(id));
     }
+
+    @Override
+    public Provider createOrUpdate(Provider provider) {
+        return ProviderBuilder.toDomain(this.entityManager.merge(ProviderBuilder.toEntity(provider)));
+    }
+
+    @Override
+    public Provider deleteById(int id) {
+        ProviderEntity providerEntity = this.getProviderEntityById(id);
+        this.entityManager.remove(providerEntity);
+        return ProviderBuilder.toDomain(providerEntity);
+    }
 }

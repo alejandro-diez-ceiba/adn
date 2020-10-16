@@ -9,4 +9,8 @@ public interface UserRepository {
 
     User getById(int id);
 
+    User createOrUpdate(User user);
+
+    User deleteById(int id);
+
 }

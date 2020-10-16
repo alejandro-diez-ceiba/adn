@@ -1,7 +1,7 @@
 package com.ceiba.adn.infrastructure.persistence.builder;
 
 import com.ceiba.adn.domain.*;
-import com.ceiba.adn.infrastructure.persistence.entity.KardexEntity;
+import com.ceiba.adn.infrastructure.persistence.entity.*;
 
 public class KardexBuilder {
 
@@ -24,9 +24,33 @@ public class KardexBuilder {
         return kardex;
     }
 
+    public static KardexEntity toEntity(Kardex kardex) {
+
+        ProviderEntity providerEntity = new ProviderEntity();
+        providerEntity.setId(kardex.getProvider().getId());
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setId(kardex.getCustomer().getId());
+
+        GameEntity gameEntity = new GameEntity();
+        gameEntity.setId(kardex.getGame().getId());
+
+        KardexEntity kardexEntity = new KardexEntity();
+        kardexEntity.setId(kardex.getId());
+        kardexEntity.setTransaction(kardex.getTransaction());
+        kardexEntity.setEntryOrExit(kardex.isEntryOrExit());
+        kardexEntity.setQuantity(kardex.getQuantity());
+        kardexEntity.setPrice(kardex.getPrice());
+        kardexEntity.setProvider(providerEntity);
+        kardexEntity.setCustomer(customerEntity);
+        kardexEntity.setGame(gameEntity);
+
+        return kardexEntity;
+    }
+
     private static Provider getProvider(KardexEntity kardexEntity) {
         Provider provider = null;
-        if (kardexEntity.getProvider() != null) {
+        if (kardexEntity.getProvider() != null && kardexEntity.getProvider().getFullName() != null) {
             TypeDocument typeDocument = new TypeDocument(
                     kardexEntity.getProvider().getTypeDocument().getId(),
                     kardexEntity.getProvider().getTypeDocument().getDescription()
@@ -45,7 +69,7 @@ public class KardexBuilder {
 
     private static Customer getCustomer(KardexEntity kardexEntity) {
         Customer customer = null;
-        if (kardexEntity.getCustomer() != null) {
+        if (kardexEntity.getCustomer() != null && kardexEntity.getCustomer().getFullName() != null) {
             TypeDocument typeDocument = new TypeDocument(
                     kardexEntity.getCustomer().getTypeDocument().getId(),
                     kardexEntity.getCustomer().getTypeDocument().getDescription()
