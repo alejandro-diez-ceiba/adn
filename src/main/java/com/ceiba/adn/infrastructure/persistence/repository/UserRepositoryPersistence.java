@@ -1,7 +1,7 @@
 package com.ceiba.adn.infrastructure.persistence.repository;
 
 import com.ceiba.adn.domain.User;
-import com.ceiba.adn.domain.repository.UserGetRepository;
+import com.ceiba.adn.domain.repository.UserRepository;
 import com.ceiba.adn.infrastructure.persistence.builder.UserBuilder;
 import com.ceiba.adn.infrastructure.persistence.entity.UserEntity;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class UserRepositoryPersistence implements UserGetRepository {
+public class UserRepositoryPersistence implements UserRepository {
 
     private static final String FIND_ALL_USER = "SELECT a FROM User a";
     private EntityManager entityManager;
@@ -32,7 +32,7 @@ public class UserRepositoryPersistence implements UserGetRepository {
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<User> getAll() {
         return this.getAllUserEntity()
                 .stream()
                 .map(userEntity -> UserBuilder.toDomain(userEntity))
@@ -40,7 +40,19 @@ public class UserRepositoryPersistence implements UserGetRepository {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getById(int id) {
         return UserBuilder.toDomain(this.getUserEntityById(id));
+    }
+
+    @Override
+    public User createOrUpdate(User user) {
+        return UserBuilder.toDomain(this.entityManager.merge(UserBuilder.toEntity(user)));
+    }
+
+    @Override
+    public User deleteById(int id) {
+        UserEntity userEntity = this.getUserEntityById(id);
+        this.entityManager.remove(userEntity);
+        return UserBuilder.toDomain(userEntity);
     }
 }
