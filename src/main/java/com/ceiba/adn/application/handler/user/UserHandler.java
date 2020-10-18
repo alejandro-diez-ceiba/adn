@@ -21,4 +21,8 @@ public class UserHandler {
     public User executeGetById(int id) {
         return this.userRepository.getById(id);
     }
+
+    public User executeGetByDocumentAndPassword(long document, String password) {
+        return this.userRepository.getByDocumentAndPassword(document, password);
+    }
 }

@@ -29,6 +29,11 @@ public class UserController {
         return this.userHandler.executeGetById(id);
     }
 
+    @PostMapping("/{document}/{password}")
+    public User login(@PathVariable(name = "document") long document, @PathVariable(name = "password") String password) {
+        return this.userHandler.executeGetByDocumentAndPassword(document, password);
+    }
+
     @PostMapping
     public User createOrUpdate(@RequestBody UserCommand userCommand) {
         return this.userHandlerPersistence.executeCreateOrUpdate(userCommand);
