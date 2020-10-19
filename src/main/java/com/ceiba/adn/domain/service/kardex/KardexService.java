@@ -18,7 +18,8 @@ public class KardexService {
 
         if (!kardex.isEntryOrExit()) {
             Calendar calendar = Calendar.getInstance();
-            final int dayMonth = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+            calendar.setTime(kardex.getTransaction());
+            final int dayMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
             if (DAY_TWENTY == dayMonth) {
                 final double price = kardex.getPrice();
