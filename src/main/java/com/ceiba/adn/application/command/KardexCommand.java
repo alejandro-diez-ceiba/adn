@@ -5,7 +5,7 @@ public class KardexCommand {
     private long id;
     private long transaction;
     private boolean entryOrExit;
-    private double quantity;
+    private int quantity;
     private double price;
     private int provider;
     private int customer;
@@ -13,6 +13,17 @@ public class KardexCommand {
 
     public KardexCommand() {
 
+    }
+
+    public KardexCommand(long id, long transaction, boolean entryOrExit, int quantity, double price, int provider, int customer, long game) {
+        this.id = id;
+        this.transaction = transaction;
+        this.entryOrExit = entryOrExit;
+        this.quantity = quantity;
+        this.price = price;
+        this.provider = provider;
+        this.customer = customer;
+        this.game = game;
     }
 
     public long getId() {
@@ -27,7 +38,7 @@ public class KardexCommand {
         return entryOrExit;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 

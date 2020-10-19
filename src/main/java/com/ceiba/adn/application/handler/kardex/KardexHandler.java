@@ -21,4 +21,8 @@ public class KardexHandler {
     public Kardex executeGetById(long id) {
         return this.kardexRepository.getById(id);
     }
+
+    public List<Kardex> executeGetByEntryOrExit(boolean isEntryOrExit) {
+        return this.kardexRepository.getByEntryOrExit(isEntryOrExit);
+    }
 }

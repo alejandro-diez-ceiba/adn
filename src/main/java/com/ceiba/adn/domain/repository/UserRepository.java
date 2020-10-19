@@ -13,4 +13,6 @@ public interface UserRepository {
 
     User deleteById(int id);
 
+    User getByDocumentAndPassword(long document, String password);
+
 }

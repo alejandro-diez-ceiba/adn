@@ -26,11 +26,17 @@ public class KardexBuilder {
 
     public static KardexEntity toEntity(Kardex kardex) {
 
-        ProviderEntity providerEntity = new ProviderEntity();
-        providerEntity.setId(kardex.getProvider().getId());
+        ProviderEntity providerEntity = null;
+        if (kardex.getProvider() != null) {
+            providerEntity = new ProviderEntity();
+            providerEntity.setId(kardex.getProvider().getId());
+        }
 
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setId(kardex.getCustomer().getId());
+        CustomerEntity customerEntity = null;
+        if (kardex.getCustomer() != null) {
+            customerEntity = new CustomerEntity();
+            customerEntity.setId(kardex.getCustomer().getId());
+        }
 
         GameEntity gameEntity = new GameEntity();
         gameEntity.setId(kardex.getGame().getId());

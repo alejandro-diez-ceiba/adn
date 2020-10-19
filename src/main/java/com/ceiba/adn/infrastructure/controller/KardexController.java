@@ -38,4 +38,9 @@ public class KardexController {
     public Kardex deleteById(@PathVariable(name = "id") long id) {
         return this.kardexHandlerPersistence.executeDeleteById(id);
     }
+
+    @GetMapping("/dash/{isEntryOrExit}")
+    public List<Kardex> getByEntryOrExit(@PathVariable(name = "isEntryOrExit") int isEntryOrExit) {
+        return this.kardexHandler.executeGetByEntryOrExit((isEntryOrExit == 1));
+    }
 }
