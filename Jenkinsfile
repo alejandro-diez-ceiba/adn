@@ -50,7 +50,8 @@ pipeline {
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        sh './gradlew test'
+        sh 'gradle --b ./build.gradle test'
+		    sh 'gradle --b ./build.gradle jacocoTestReport'
       }
     }
 
