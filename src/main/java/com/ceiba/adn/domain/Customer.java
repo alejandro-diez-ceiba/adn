@@ -9,6 +9,10 @@ public class Customer {
     private String address;
     private String phone;
 
+    public Customer(int id) {
+        this.id = id;
+    }
+
     public Customer(int id, String fullName, TypeDocument typeDocument, long document, String address, String phone) {
         this.id = id;
         this.fullName = fullName;

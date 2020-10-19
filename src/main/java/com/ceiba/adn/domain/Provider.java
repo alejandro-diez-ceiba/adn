@@ -9,6 +9,10 @@ public class Provider {
     private String address;
     private String phone;
 
+    public Provider(int id) {
+        this.id = id;
+    }
+
     public Provider(int id, String fullName, TypeDocument typeDocument, long document, String address, String phone) {
         this.id = id;
         this.fullName = fullName;

@@ -12,6 +12,10 @@ public class Game {
     private Platform platform;
     private Language language;
 
+    public Game(long id) {
+        this.id = id;
+    }
+
     public Game(long id, String name, Date launch, double price, String image, Platform platform, Language language) {
         this.id = id;
         this.name = name;

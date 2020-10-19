@@ -1,7 +1,7 @@
 package com.ceiba.adn.infraestructure.controller;
 
-import com.ceiba.adn.application.command.UserCommand;
-import com.ceiba.adn.databuilder.UserTestDataBuilder;
+import com.ceiba.adn.application.command.KardexCommand;
+import com.ceiba.adn.databuilder.KardexTestDatauilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Sql(scripts = {"classpath:clean.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class UserControllerTest {
+public class KardexControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -35,14 +35,14 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user/{id}", "1")
+                                .get("/kardex/{id}", "1")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.fullName").value("Pepito Cardenas")
+                                .jsonPath("$.quantity").value(5)
                 );
     }
 
@@ -51,7 +51,7 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/user")
+                                .get("/kardex")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
@@ -64,15 +64,15 @@ public class UserControllerTest {
 
     @Test
     public void create() throws Exception {
-        UserCommand userCommand = new UserTestDataBuilder().buildUserCommand();
+        KardexCommand kardexCommand = new KardexTestDatauilder().buildKardexCommand();
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/user")
-                                .content(objectMapper.writeValueAsString(userCommand))
+                                .post("/kardex")
+                                .content(objectMapper.writeValueAsString(kardexCommand))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                                .andExpect(status().isOk()
+                .andExpect(status().isOk()
                 );
     }
 
@@ -81,7 +81,7 @@ public class UserControllerTest {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .delete("/user/{id}", "1")
+                                .delete("/kardex/{id}", "1")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
@@ -89,18 +89,18 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getByDocumentAndPassword() throws Exception {
+    public void getByEntryOrExit() throws Exception {
         mvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/user/{document}/{password}", "1017249864", "2222222")
+                                .get("/kardex/dash/0")
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers
-                                .jsonPath("$.fullName").value("Pepito Cardenas")
+                                .jsonPath("$.length()").value(0)
                 );
     }
 }

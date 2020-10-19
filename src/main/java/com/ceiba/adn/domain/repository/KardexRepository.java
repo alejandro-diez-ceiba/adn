@@ -13,4 +13,6 @@ public interface KardexRepository {
 
     Kardex deleteById(long id);
 
+    List<Kardex> getByEntryOrExit(boolean isEntryOrExit);
+
 }

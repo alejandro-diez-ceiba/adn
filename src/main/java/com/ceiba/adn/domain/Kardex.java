@@ -55,4 +55,8 @@ public class Kardex {
     public Game getGame() {
         return game;
     }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
